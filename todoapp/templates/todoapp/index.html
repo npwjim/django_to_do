@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To-do index</title>
+</head>
+<body>
+<h2>Welcome to Django to-do app!</h2>
+{% if request.user.is_authenticated %}
+    <p>{{ request.user }} is logging in.</p>
+{% else %}
+    <p>Not logging in yet.<a href="/todoapp/login/">Login</p>
+{% endif %} 
+</body>
+</html>
