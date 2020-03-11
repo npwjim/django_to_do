@@ -20,7 +20,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PackageRequirementsSettings">
-    <option name="requirementsPath" value="C:\Users\Administrator\PycharmProjects\django_to_do\requirement.txt" />
+    <option name="requirementsPath" value="requirement.txt" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />

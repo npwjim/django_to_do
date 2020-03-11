@@ -5,11 +5,14 @@
     <title>To-do index</title>
 </head>
 <body>
-<h2>Welcome to Django to-do app!</h2>
-{% if request.user.is_authenticated %}
-    <p>{{ request.user }} is logging in.</p>
-{% else %}
-    <p>Not logging in yet.<a href="/todoapp/login/">Login</p>
-{% endif %} 
+    <h2>Welcome to Django to-do app!</h2>
+    {% if request.user.is_authenticated %}
+        <p>
+            {{ request.user }} is logged in.
+            <a href="{% url 'todoapp:logout' %}">Log out</a>
+        </p>
+    {% else %}
+        <p>You are not logged in. <a href="{% url 'todoapp:login' %}">Sign in</p>
+    {% endif %}
 </body>
 </html>
