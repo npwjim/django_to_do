@@ -12,7 +12,8 @@
             <a href="{% url 'todoapp:logout' %}">Log out</a>
         </p>
     {% else %}
-        <p>You are not logged in. <a href="{% url 'todoapp:login' %}">Sign in</p>
+        <p>You are not logged in. <a href="{% url 'todoapp:login' %}">Sign in</a></p>
+        <p>If you don't have an account, please <a href="{% url 'todoapp:register' %}">sign up</a></p>
     {% endif %}
 </body>
 </html>

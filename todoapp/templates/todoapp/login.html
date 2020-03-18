@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Sign in</title>
 </head>
 <body>
-<form action="{% url 'todoapp:login' %}?next=/list/" method="post">
+<form action="{% url 'todoapp:login' %}?next={% url 'todoapp:list' %}" method="post">
     {% csrf_token %}
 {#    <label for="username">Username:</label>#}
 {#    <input type="text" name="username" value="" id="username"><br>#}
@@ -14,7 +14,7 @@
     <table>
         {{ form.as_table }}
     </table>
-    <input type="submit" value="Login">
+    <input type="submit" value="Sign in">
 </form>
 </body>
 </html>

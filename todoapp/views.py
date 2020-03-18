@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib import auth
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect, HttpResponse
 
 
@@ -12,6 +13,17 @@ class LoginView(auth_views.LoginView):
 
 class LogoutView(auth_views.LogoutView):
     next_page = '/todo/'
+
+
+def register(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            return HttpResponseRedirect('/todo/accounts/login/')
+    else:
+        form = UserCreationForm(request.POST)
+    return render(request, 'todoapp/register.html', locals())
 
 
 def index(request):
