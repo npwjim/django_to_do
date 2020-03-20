@@ -4,6 +4,7 @@ from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect, HttpResponse
+from django.utils import timezone
 
 
 # Create your views here.
@@ -13,7 +14,15 @@ def index(request):
 
 @login_required
 def todo_list(request):
-    return HttpResponse("Hi, this is your to-do list.")
+    return render(request, 'todoapp/list.html')
+
+
+def add_todo(request):
+    added_date = timezone.now()
+    content = request.POST["content"]
+    print(added_date)
+    print(content)
+    return render(request, 'todoapp/list.html')
 
 
 # class LoginView(auth_views.LoginView):

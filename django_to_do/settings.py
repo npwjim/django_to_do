@@ -123,8 +123,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = '/todo/'
+LOGIN_REDIRECT_URL = '/list/'
 
-# LOGIN_URL = '/todo/accounts/login/'
+LOGIN_URL = '/users/login/'
 
 AUTH_USER_MODEL = 'users.CustomUser'

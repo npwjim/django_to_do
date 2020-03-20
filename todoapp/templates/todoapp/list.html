@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To-do list</title>
+    {% block title %}To-do list{% endblock %}
+</head>
+<body>
+    {% block content %}
+        <div class="row mt-4">
+            <div class="col">
+                <h2>Add task</h2>
+                <form action="{% url 'todoapp:add' %}" method="post" class="form-inline">
+                    {% csrf_token %}
+                    <input type="text" name="content" class="form-control mb-2 mr-sm-2" placeholder="Type here...">
+                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                </form>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col">
+                <ul class="list-group">
+                  <li class="list-group-item">Cras justo odio</li>
+                  <li class="list-group-item">Dapibus ac facilisis in</li>
+                  <li class="list-group-item">Morbi leo risus</li>
+                  <li class="list-group-item">Porta ac consectetur ac</li>
+                  <li class="list-group-item">Vestibulum at eros</li>
+                </ul>
+            </div>
+        </div>
+    {% endblock %}
+</body>
+</html>
