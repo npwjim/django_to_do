@@ -19,5 +19,7 @@ from todoapp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('todo/', include('todoapp.urls')),
+    path('', include('todoapp.urls')),
+    path('users/', include('users.urls')),
+    # path('users/', include('django.contrib.auth.urls')),
 ]
