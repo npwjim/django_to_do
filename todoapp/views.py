@@ -4,7 +4,11 @@ from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect, HttpResponse
+from django.template.defaultfilters import length
 from django.utils import timezone
+from django.urls import reverse
+
+from . models import Todo
 
 
 # Create your views here.
@@ -14,15 +18,22 @@ def index(request):
 
 @login_required
 def todo_list(request):
-    return render(request, 'todoapp/list.html')
+    todo_items = Todo.objects.filter(user=request.user).order_by('-added_date')
+    return render(request, 'todoapp/list.html', {
+        "todo_items": todo_items
+    })
 
 
 def add_todo(request):
-    added_date = timezone.now()
     content = request.POST["content"]
-    print(added_date)
-    print(content)
-    return render(request, 'todoapp/list.html')
+    created_obj = Todo.objects.create(user=request.user, text=content)
+    length_of_todos = Todo.objects.all().count()
+    return HttpResponseRedirect(reverse("todoapp:list"))
+
+
+def delete_todo(request, todo_id):
+    Todo.objects.get(id=todo_id).delete()
+    return HttpResponseRedirect(reverse("todoapp:list"))
 
 
 # class LoginView(auth_views.LoginView):

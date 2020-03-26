@@ -22,11 +22,16 @@
         <div class="row mt-4">
             <div class="col">
                 <ul class="list-group">
-                  <li class="list-group-item">Cras justo odio</li>
-                  <li class="list-group-item">Dapibus ac facilisis in</li>
-                  <li class="list-group-item">Morbi leo risus</li>
-                  <li class="list-group-item">Porta ac consectetur ac</li>
-                  <li class="list-group-item">Vestibulum at eros</li>
+                    {% for todo_item in todo_items %}
+                        <li class="list-group-item">{{ todo_item.text }}
+                            <div class="float-right">
+                                <form action="{% url 'todoapp:delete' todo_item.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                                </form>
+                            </div>
+                        </li>
+                    {% endfor %}
                 </ul>
             </div>
         </div>
