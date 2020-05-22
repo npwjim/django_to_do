@@ -21,6 +21,7 @@
   </component>
   <component name="PackageRequirementsSettings">
     <option name="requirementsPath" value="requirement.txt" />
+    <option name="versionSpecifier" value="Strong equality (==x.y.z)" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />

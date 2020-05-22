@@ -1,15 +1,21 @@
+{% extends 'base.html' %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Sign up</title>
+    {% block title %}Sign up{% endblock %}
 </head>
 <body>
-    <h1>Create a new account</h1>
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Sign up">
-    </form>
+    {% block content %}
+        <h1>Create a new account</h1>
+
+        <form action="" method="post">
+            {% csrf_token %}
+            {% include 'bs4_form.html' with form=form %}
+            <input type="submit" value="Sign up">
+        </form>
+    {% endblock %}
 </body>
 </html>
