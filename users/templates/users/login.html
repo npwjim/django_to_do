@@ -7,13 +7,20 @@
     <title>Sign in</title>
     {% block title %}Sign in{% endblock %}
 </head>
-<body>
+<div>
     {% block content %}
-        <form action="{% url 'users:login' %}?next={% url 'todoapp:list' %}" method="post">
-            {% csrf_token %}
-            {% include 'bs4_form.html' with form=form %}
-            <input type="submit" value="Sign in">
-        </form>
+        <div class="row mt-4">
+            <div class="mx-auto" style="width: 200px;">
+                <h2>Sign in</h2>
+
+                <form action="{% url 'users:login' %}?next={% url 'todoapp:list' %}" method="post">
+                    {% csrf_token %}
+                    {% include 'bs4_form.html' with form=form %}
+                    <input type="submit" value="Sign in">
+                </form>
+
+            </div>
+        </div>
     {% endblock %}
 </body>
 </html>

@@ -9,13 +9,19 @@
 </head>
 <body>
     {% block content %}
-        <h1>Create a new account</h1>
+        <div class="row mt-4">
+            <div class="mx-auto" style="width: 600px;">
 
-        <form action="" method="post">
-            {% csrf_token %}
-            {% include 'bs4_form.html' with form=form %}
-            <input type="submit" value="Sign up">
-        </form>
+                <h2>Create a new account</h2>
+
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {% include 'bs4_form.html' with form=form %}
+                    <input type="submit" value="Sign up">
+                </form>
+
+            </div>
+        </div>
     {% endblock %}
 </body>
 </html>

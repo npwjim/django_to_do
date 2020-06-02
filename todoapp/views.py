@@ -8,12 +8,15 @@ from django.template.defaultfilters import length
 from django.utils import timezone
 from django.urls import reverse
 
-from . models import Todo
+from .models import Todo
 
 
 # Create your views here.
 def index(request):
-    return render(request, 'todoapp/index.html')
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("todoapp:list"))
+    else:
+        return render(request, 'todoapp/index.html')
 
 
 @login_required

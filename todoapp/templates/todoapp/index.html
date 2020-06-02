@@ -9,16 +9,21 @@
 </head>
 <body>
     {% block content %}
-        <h2>Welcome to Django to-do app!</h2>
-        {% if user.is_authenticated %}
-            <p>
-                Hi, {{ user.username }}. You are logged in.
-                <a href="{% url 'users:logout' %}">Log out</a>
-            </p>
-        {% else %}
-            <p>You are not logged in. <a href="{% url 'users:login' %}">Sign in</a></p>
-            <p>If you don't have an account, please <a href="{% url 'users:signup' %}">sign up</a></p>
-        {% endif %}
+        <div class="row mt-4">
+            <div class="mx-auto">
+                <h2>Welcome to Django to-do app!</h2>
+
+                {% if user.is_authenticated %}
+                    <p>
+                        Hi, {{ user.username }}. You are logged in.
+                        <a href="{% url 'users:logout' %}">Log out</a>
+                    </p>
+                {% else %}
+                    <p>You are not logged in. <a href="{% url 'users:login' %}">Sign in</a></p>
+                    <p>If you don't have an account, please <a href="{% url 'users:signup' %}">sign up</a></p>
+                {% endif %}
+            </div>
+        </div>
     {% endblock %}
 </body>
 </html>
