@@ -21,12 +21,15 @@ def index(request):
 
 @login_required
 def todo_list(request):
-    todo_items = Todo.objects.filter(user=request.user).order_by('-added_date')
+    todo_items = Todo.objects.filter(user=request.user, done=False).order_by('-added_date')
+    finished_items = Todo.objects.filter(user=request.user, done=True).order_by('-added_date')
     return render(request, 'todoapp/list.html', {
-        "todo_items": todo_items
+        "todo_items": todo_items,
+        "finished_times": finished_items,
     })
 
 
+@login_required
 def add_todo(request):
     content = request.POST["content"]
     created_obj = Todo.objects.create(user=request.user, text=content)
@@ -34,8 +37,17 @@ def add_todo(request):
     return HttpResponseRedirect(reverse("todoapp:list"))
 
 
+@login_required
 def delete_todo(request, todo_id):
     Todo.objects.get(id=todo_id).delete()
+    return HttpResponseRedirect(reverse("todoapp:list"))
+
+
+@login_required
+def finish_todo(request, todo_id):
+    finished_todo = Todo.objects.get(id=todo_id)
+    finished_todo.done = True
+    finished_todo.save()
     return HttpResponseRedirect(reverse("todoapp:list"))
 
 

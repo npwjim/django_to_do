@@ -21,10 +21,15 @@
         </div>
         <div class="row mt-4">
             <div class="col">
+                <h3>Inbox</h3>
                 <ul class="list-group">
                     {% for todo_item in todo_items %}
-                        <li class="list-group-item">{{ todo_item.text }}
-                            <div class="float-right">
+                        <li class="list-group-item list-group-item-action d-flex justify-content-between">{{ todo_item.text }}
+                            <div class="btn-group">
+                                <form action="{% url 'todoapp:finish' todo_item.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-sm btn-outline-success mr-2">Finish</button>
+                                </form>
                                 <form action="{% url 'todoapp:delete' todo_item.id %}" method="post">
                                     {% csrf_token %}
                                     <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
@@ -35,6 +40,25 @@
                 </ul>
             </div>
         </div>
+
+        {% if finished_times %}
+            <div class="row mt-4">
+                <div class="col">
+                    <h3>Finished tasks</h3>
+                    <ul class="list-group">
+                        {% for item in finished_times %}
+                            <li class="list-group-item list-group-item-action list-group-item-light">{{ item.text }}
+                                <div class="float-right">
+                                    <form action="{% url 'todoapp:delete' item.id %}" method="post">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                                    </form>
+                                </div>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
     {% endblock %}
 </body>
 </html>
