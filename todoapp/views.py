@@ -29,22 +29,25 @@ def todo_list(request):
     })
 
 
-@login_required
 def add_todo(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("users:login"))
     content = request.POST["content"]
     created_obj = Todo.objects.create(user=request.user, text=content)
     length_of_todos = Todo.objects.all().count()
     return HttpResponseRedirect(reverse("todoapp:list"))
 
 
-@login_required
 def delete_todo(request, todo_id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("users:login"))
     Todo.objects.get(id=todo_id).delete()
     return HttpResponseRedirect(reverse("todoapp:list"))
 
 
-@login_required
 def finish_todo(request, todo_id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("users:login"))
     finished_todo = Todo.objects.get(id=todo_id)
     finished_todo.done = True
     finished_todo.save()
