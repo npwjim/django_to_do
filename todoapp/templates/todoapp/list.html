@@ -10,16 +10,49 @@
 <body>
     {% block content %}
         <div class="row mt-4">
-            <div class="col">
-                <h2>Add task</h2>
-                <form action="{% url 'todoapp:add' %}" method="post" class="form-inline">
-                    {% csrf_token %}
-                    <input type="text" name="content" class="form-control mb-2 mr-sm-2" placeholder="Type here...">
-                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
-                </form>
+            <div class="col d-flex justify-content-between">
+                <h2>Hi, {{ user.get_username }}</h2>
+                <div class="d-flex">
+                    <div class="btn-group mr-2">
+                        <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <svg class="bi bi-file-plus" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 1H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V8h-1v5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h5V1z"/>
+                                <path fill-rule="evenodd" d="M13.5 1a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1H13V1.5a.5.5 0 0 1 .5-.5z"/>
+                                <path fill-rule="evenodd" d="M13 3.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0v-2z"/>
+                            </svg>
+                        </button>
+                        <form class="dropdown-menu p-3 dropdown-menu-right" style="width: 300px;" action="{% url 'todoapp:add' %}" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="newTask">Add a new task</label>
+                                <input type="text" name="content" class="form-control mb-2 mr-sm-2" id="newTask" placeholder="Type here...">
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                        </form>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <svg class="bi bi-search" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+                                <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right   ">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Separated link</a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
-        <div class="row mt-4">
+        <div class="row ml-0">
+            <p>You have {{ todo_items.count }} uncompleted task(s).</p>
+        </div>
+        <div class="row mt-2">
             <div class="col">
                 <h3>Inbox</h3>
                 <ul class="list-group">
@@ -28,7 +61,7 @@
                             <div class="btn-group">
                                 <form action="{% url 'todoapp:finish' todo_item.id %}" method="post">
                                     {% csrf_token %}
-                                    <button type="submit" class="btn btn-sm btn-outline-success mr-2">Finish</button>
+                                    <button type="submit" class="btn btn-sm btn-outline-success mr-2">Complete</button>
                                 </form>
                                 <form action="{% url 'todoapp:delete' todo_item.id %}" method="post">
                                     {% csrf_token %}
@@ -41,12 +74,12 @@
             </div>
         </div>
 
-        {% if finished_times %}
+        {% if completed_times %}
             <div class="row mt-4">
                 <div class="col">
                     <h3>Finished tasks</h3>
                     <ul class="list-group">
-                        {% for item in finished_times %}
+                        {% for item in completed_times %}
                             <li class="list-group-item list-group-item-action list-group-item-light">{{ item.text }}
                                 <div class="float-right">
                                     <form action="{% url 'todoapp:delete' item.id %}" method="post">

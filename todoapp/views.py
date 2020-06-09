@@ -22,10 +22,12 @@ def index(request):
 @login_required
 def todo_list(request):
     todo_items = Todo.objects.filter(user=request.user, done=False).order_by('-added_date')
-    finished_items = Todo.objects.filter(user=request.user, done=True).order_by('-added_date')
+    completed_items = Todo.objects.filter(user=request.user, done=True).order_by('-added_date')
+    todo_count = todo_items.count()
     return render(request, 'todoapp/list.html', {
         "todo_items": todo_items,
-        "finished_times": finished_items,
+        "completed_times": completed_items,
+        "todo_count": todo_count,
     })
 
 
