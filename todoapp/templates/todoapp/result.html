@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}Search results{% endblock %}
+</head>
+<body>
+    {% block content %}
+        <div class="row mt-4">
+            <div class="col">
+            <h3>Search result(s) of "{{ query_string }}"</h3>
+            <div class="list-group list-group-flush mt-2">
+                {% for task in found_tasks %}
+                    <div class="list-group-item mb-1">
+                        <h5>{{ task.text }}</h5>
+                        <small>Status:
+                            {% if task.done %}
+                                Completed
+                            {% else %}
+                                Uncompleted
+                            {% endif %}
+                        </small>
+                    </div>
+                {% endfor %}
+            </div>
+    {% endblock %}
+</body>
+</html>

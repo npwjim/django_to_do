@@ -23,20 +23,17 @@ def index(request):
 def todo_list(request):
     todo_items = Todo.objects.filter(user=request.user, done=False).order_by('-added_date')
     completed_items = Todo.objects.filter(user=request.user, done=True).order_by('-added_date')
-    todo_count = todo_items.count()
     return render(request, 'todoapp/list.html', {
         "todo_items": todo_items,
         "completed_times": completed_items,
-        "todo_count": todo_count,
     })
 
 
 def add_todo(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("users:login"))
-    content = request.POST["content"]
-    created_obj = Todo.objects.create(user=request.user, text=content)
-    length_of_todos = Todo.objects.all().count()
+    if request.POST["content"].split():
+        Todo.objects.create(user=request.user, text=request.POST["content"])
     return HttpResponseRedirect(reverse("todoapp:list"))
 
 
@@ -54,6 +51,26 @@ def finish_todo(request, todo_id):
     finished_todo.done = True
     finished_todo.save()
     return HttpResponseRedirect(reverse("todoapp:list"))
+
+
+@login_required
+def search_todo(request):
+    if request.GET:  # what if access search view via GET method
+        query_string = request.GET["search"]
+        found_tasks = set()
+        if query_string.split():  # what if the content in queryText makes sense
+            query_string_list = query_string.split()
+            for string in query_string_list:
+                for result in Todo.objects.filter(text__icontains=string):
+                    found_tasks.add(result)
+        else:  # if the content does not make sense, list all tasks
+            found_tasks = Todo.objects.all()
+        return render(request, 'todoapp/result.html', {
+            "query_string": query_string,
+            "found_tasks": found_tasks,
+        })
+    else:
+        return HttpResponseRedirect(reverse("todoapp:list"))
 
 
 # class LoginView(auth_views.LoginView):

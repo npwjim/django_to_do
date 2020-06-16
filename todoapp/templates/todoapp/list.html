@@ -4,8 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>To-do list</title>
-    {% block title %}To-do list{% endblock %}
+    {% block title %}To-do List{% endblock %}
 </head>
 <body>
     {% block content %}
@@ -27,7 +26,7 @@
                                 <label for="newTask">Add a new task</label>
                                 <input type="text" name="content" class="form-control mb-2 mr-sm-2" id="newTask" placeholder="Type here...">
                             </div>
-                            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                            <button type="submit" class="btn btn-primary mb-2">Create</button>
                         </form>
                     </div>
                     <div class="btn-group">
@@ -37,13 +36,13 @@
                                 <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
                             </svg>
                         </button>
-                        <div class="dropdown-menu dropdown-menu-right   ">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Separated link</a>
-                        </div>
+                        <form class="dropdown-menu p-3 dropdown-menu-right" style="width: 300px;" action="{% url 'todoapp:search' %}" method="get">
+                            <div class="form-group">
+                                <label for="newTask">Search</label>
+                                <input type="search" name="search" class="form-control mb-2 mr-sm-2" placeholder="Type here...">
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                        </form>
                     </div>
                 </div>
 
@@ -77,7 +76,7 @@
         {% if completed_times %}
             <div class="row mt-4">
                 <div class="col">
-                    <h3>Finished tasks</h3>
+                    <h3>Completed tasks</h3>
                     <ul class="list-group">
                         {% for item in completed_times %}
                             <li class="list-group-item list-group-item-action list-group-item-light">{{ item.text }}
