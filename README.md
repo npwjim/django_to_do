@@ -15,3 +15,6 @@ Quickly create a task with just one click:
   ![Search results](/docs/search2.png)
 ## Demo
 [django-simple-to-do on Heroku](https://django-simple-to-do.herokuapp.com/ "django-simple-to-do | Heroku")
+
+Demo account: `Tester`  
+Password: `addatask`
